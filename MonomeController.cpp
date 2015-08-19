@@ -295,6 +295,42 @@ void MonomeController::grid_led_clear() {
   frame_dirty_ = 0xf;
 }
 
+// basic grid line drawing via Bresenham's line algorithm
+void MonomeController::grid_draw_line(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, uint8_t val) {
+  int8_t dx = abs(x1 - x0);
+  int8_t dy = abs(y1 - y0);
+  int8_t sx, sy;
+  if (x0 < x1) {
+    sx = 1;
+  } else {
+    sx = -1;
+  }
+  if (y0 < y1) {
+    sy = 1;
+  } else {
+    sy = -1;
+  }
+  int8_t error = dx - dy;
+  while(true) {
+    grid_led_set(x0, y0, val);
+    
+    if (x0 == x1 && y0 == y1) {
+      break;
+    }
+    
+    int8_t e2 = 2 * error;
+    if (e2 > -dy) {
+      error -= dy;
+      x0 += sx;
+    }
+    
+    if (e2 < dx) {
+      error += dx;
+      y0 += sy;
+    }
+  }
+}
+
 // grid led/toggle function
 void MonomeController::grid_led_toggle(uint8_t x, uint8_t y) {
   led_buf_[xy_idx(x,y)] ^= 0xff;
