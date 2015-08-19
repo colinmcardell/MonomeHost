@@ -31,7 +31,7 @@
   https://github.com/tehn/aleph/
 
   - monome protocol by tehn
-  http://monome.org/docs/tech:serial
+  http://monome.org/docs/serial.txt
 
 */
 
