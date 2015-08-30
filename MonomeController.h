@@ -126,6 +126,11 @@ class MonomeController : public MonomeReportParser {
   void grid_draw_h_line(int8_t x, int8_t y, uint8_t length, uint8_t val);
   // draw a vertical line
   void grid_draw_v_line(int8_t x, int8_t y, uint8_t length, uint8_t val);
+  
+  // draw rectangle
+  void grid_draw_rect(int8_t x, int8_t y, uint8_t width, uint8_t height, uint8_t val);
+  // draw filled rectangle
+  void grid_fill_rect(int8_t x, int8_t y, uint8_t width, uint8_t height, uint8_t val);
 
   // grid led/set function
   void grid_led_set(int8_t x, int8_t y, uint8_t val);

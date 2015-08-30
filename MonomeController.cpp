@@ -345,6 +345,20 @@ void MonomeController::grid_draw_v_line(int8_t x, int8_t y, uint8_t length, uint
   grid_draw_line(x, y, x, y + length - 1, val);
 }
 
+// draw rectangle
+void MonomeController::grid_draw_rect(int8_t x, int8_t y, uint8_t width, uint8_t height, uint8_t val) {
+  grid_draw_h_line(x, y, width, val);
+  grid_draw_h_line(x, y + height - 1, width, val);
+  grid_draw_v_line(x, y, height, val);
+  grid_draw_v_line(x + width - 1, y, height, val);
+}
+// draw filled rectangle
+void MonomeController::grid_fill_rect(int8_t x, int8_t y, uint8_t width, uint8_t height, uint8_t val) {
+  for (int8_t i = x; i < x + width; i++) {
+    grid_draw_v_line(i, y, height, val);
+  }
+}
+
 // grid led/toggle function
 void MonomeController::grid_led_toggle(int8_t x, int8_t y) {
   if (x < 0 || y < 0 || (x >= desc_.cols) || (y >= desc_.rows)) {
