@@ -282,7 +282,11 @@ uint32_t MonomeController::xy_idx(uint8_t x, uint8_t y) {
 }
 
 // grid led/set function
-void MonomeController::grid_led_set(uint8_t x, uint8_t y, uint8_t z) {
+void MonomeController::grid_led_set(int8_t x, int8_t y, uint8_t z) {
+  if (x < 0 || y < 0 || (x >= desc_.cols) || (y >= desc_.rows)) {
+    return; // location out of bounds
+  }
+    
   led_buf_[MonomeController::xy_idx(x, y)] = z;
   MonomeController::calc_quadrant_flag(x, y);
 }
@@ -296,7 +300,7 @@ void MonomeController::grid_led_clear() {
 }
 
 // basic grid line drawing via Bresenham's line algorithm
-void MonomeController::grid_draw_line(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, uint8_t val) {
+void MonomeController::grid_draw_line(int8_t x0, int8_t y0, int8_t x1, int8_t y1, uint8_t val) {
   int8_t dx = abs(x1 - x0);
   int8_t dy = abs(y1 - y0);
   int8_t sx, sy;
@@ -332,17 +336,20 @@ void MonomeController::grid_draw_line(uint8_t x0, uint8_t y0, uint8_t x1, uint8_
 }
 
 // draw a horizontal line
-void MonomeController::grid_draw_h_line(uint8_t x, uint8_t y, uint8_t length, uint8_t val) {
+void MonomeController::grid_draw_h_line(int8_t x, int8_t y, uint8_t length, uint8_t val) {
   grid_draw_line(x, y, x + length - 1, y, val);
 }
 
 // draw a vertical line
-void MonomeController::grid_draw_v_line(uint8_t x, uint8_t y, uint8_t length, uint8_t val) {
+void MonomeController::grid_draw_v_line(int8_t x, int8_t y, uint8_t length, uint8_t val) {
   grid_draw_line(x, y, x, y + length - 1, val);
 }
 
 // grid led/toggle function
-void MonomeController::grid_led_toggle(uint8_t x, uint8_t y) {
+void MonomeController::grid_led_toggle(int8_t x, int8_t y) {
+  if (x < 0 || y < 0 || (x >= desc_.cols) || (y >= desc_.rows)) {
+    return; // location out of bounds
+  }
   led_buf_[xy_idx(x,y)] ^= 0xff;
   calc_quadrant_flag(x, y);  
 }
