@@ -365,12 +365,12 @@ void MonomeController::grid_led_toggle(int8_t x, int8_t y) {
     return; // location out of bounds
   }
   led_buf_[xy_idx(x,y)] ^= 0xff;
-  calc_quadrant_flag(x, y);  
+  calc_quadrant_flag(x, y);
 }
 
 // arc led/set function
 ///// FIXME??? totally untested
-void MonomeController::arc_led_set(uint8_t enc, uint8_t ring, uint8_t val) {
+void MonomeController::arc_led_set(int8_t enc, int8_t ring, uint8_t val) {
   led_buf_[ring + (enc << 6)] = val;
   frame_dirty_ |= (1 << enc);
 }

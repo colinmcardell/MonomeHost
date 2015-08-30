@@ -108,7 +108,7 @@ class MonomeController : public MonomeReportParser {
   //---- manipulate internal LED buffer
 
   //-- convenience...
-  void led_set(uint8_t x, uint8_t y, uint8_t val) {
+  void led_set(int8_t x, int8_t y, uint8_t val) {
     if(desc_.device == eDeviceArc) {
       arc_led_set(x, y, val);
     } else {
@@ -139,7 +139,7 @@ class MonomeController : public MonomeReportParser {
   // grid led/toggle function
   void grid_led_toggle(int8_t x, int8_t y);
   // arc led/set function
-  void arc_led_set(uint8_t enc, uint8_t ring, uint8_t val);
+  void arc_led_set(int8_t enc, int8_t ring, uint8_t val);
   // set quadrant dirty flag from (x,y)
   void calc_quadrant_flag(uint8_t x, uint8_t y);
   // set given quadrant dirty flag
