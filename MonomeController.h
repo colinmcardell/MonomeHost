@@ -32,6 +32,10 @@
 
   - monome protocol by tehn
   http://monome.org/docs/serial.txt
+  
+  - graphics library link functions (lines, rects, circles)
+  https://github.com/adafruit/Adafruit-GFX-Library
+  https://github.com/rweather/arduinolibs
 
 */
 
@@ -131,6 +135,11 @@ class MonomeController : public MonomeReportParser {
   void grid_draw_rect(int8_t x, int8_t y, uint8_t width, uint8_t height, uint8_t val);
   // draw filled rectangle
   void grid_fill_rect(int8_t x, int8_t y, uint8_t width, uint8_t height, uint8_t val);
+  
+  // draw circle
+  void grid_draw_circle(int8_t x0, int8_t y0, uint8_t radius, uint8_t val);
+  // draw filled circle
+  void grid_fill_circle(int8_t x0, int8_t y0, uint8_t radius, uint8_t val);
 
   // grid led/set function
   void grid_led_set(int8_t x, int8_t y, uint8_t val);

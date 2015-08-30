@@ -31,7 +31,11 @@
   https://github.com/tehn/aleph/
 
   - monome protocol by tehn
-  http://monome.org/docs/tech:serial
+  http://monome.org/docs/serial.txt
+  
+  - graphics library link functions (lines, rects, circles)
+  https://github.com/adafruit/Adafruit-GFX-Library
+  https://github.com/rweather/arduinolibs
 
 */
 
@@ -352,10 +356,72 @@ void MonomeController::grid_draw_rect(int8_t x, int8_t y, uint8_t width, uint8_t
   grid_draw_v_line(x, y, height, val);
   grid_draw_v_line(x + width - 1, y, height, val);
 }
+
 // draw filled rectangle
 void MonomeController::grid_fill_rect(int8_t x, int8_t y, uint8_t width, uint8_t height, uint8_t val) {
   for (int8_t i = x; i < x + width; i++) {
     grid_draw_v_line(i, y, height, val);
+  }
+}
+
+// draw circle
+void MonomeController::grid_draw_circle(int8_t x0, int8_t y0, uint8_t radius, uint8_t val) {
+  int8_t f = 1 - radius;
+  int8_t ddF_x = 1;
+  int8_t ddF_y = -2 * radius;
+  int8_t x = 0;
+  int8_t y = radius;
+  
+  grid_led_set(x0, y0 + radius, val);
+  grid_led_set(x0, y0 - radius, val);
+  grid_led_set(x0 + radius, y0, val);
+  grid_led_set(x0 - radius, y0, val);
+  
+  while (x < y) {
+    if (f >= 0) {
+      y--;
+      ddF_y += 2;
+      f += ddF_y;
+    }
+    
+    x++;
+    ddF_x += 2;
+    f += ddF_x;
+    
+    grid_led_set(x0 + x, y0 + y, val);
+    grid_led_set(x0 - x, y0 + y, val);
+    grid_led_set(x0 + x, y0 - y, val);
+    grid_led_set(x0 - x, y0 - y, val);
+    grid_led_set(x0 + y, y0 + x, val);
+    grid_led_set(x0 - y, y0 + x, val);
+    grid_led_set(x0 + y, y0 - x, val);
+    grid_led_set(x0 - y, y0 - x, val);
+  }
+}
+
+void MonomeController::grid_fill_circle(int8_t x0, int8_t y0, uint8_t radius, uint8_t val) {
+  grid_draw_v_line(x0, y0 - radius, 2 * radius + 1, val);
+  
+  int8_t f = 1 - radius;
+  int8_t ddF_x = 1;
+  int8_t ddF_y = -2 * radius;
+  int8_t x = 0;
+  int8_t y = radius;
+
+  while (x < y) {
+    if (f >= 0) {
+      y--;
+      ddF_y += 2;
+      f += ddF_y;
+    }
+    x++;
+    ddF_x += 2;
+    f += ddF_x;
+
+    grid_draw_v_line(x0 + x, y0 - y, 2 * y + 1, val);
+    grid_draw_v_line(x0 + y, y0 - x, 2 * x + 1, val);
+    grid_draw_v_line(x0 - x, y0 - y, 2 * y + 1, val);
+    grid_draw_v_line(x0 - y, y0 - x, 2 * x + 1, val);
   }
 }
 
