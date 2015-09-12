@@ -1,2 +1,2 @@
 # MonomeHost
-Aruduino library for hosting Monome devices
+Arduino library for hosting Monome devices

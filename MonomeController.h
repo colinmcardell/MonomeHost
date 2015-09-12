@@ -33,7 +33,7 @@
   - monome protocol by tehn
   http://monome.org/docs/serial.txt
   
-  - graphics library link functions (lines, rects, circles)
+  - graphics library functions (lines, rects, circles)
   https://github.com/adafruit/Adafruit-GFX-Library
   https://github.com/rweather/arduinolibs
 
@@ -51,6 +51,7 @@ typedef void(*MonomeConnectCallback)(const char* str, uint8_t cols, uint8_t rows
 typedef void(*MonomeGridKeyCallback)(uint8_t x, uint8_t y, uint8_t z);
 typedef void(*MonomeRingDeltaCallback)(uint8_t n, uint8_t rho);
 typedef void(*MonomeRingKeyCallback)(uint8_t n, uint8_t z);
+
 
 class MonomeController : public MonomeReportParser { 
  public:
@@ -140,7 +141,7 @@ class MonomeController : public MonomeReportParser {
   void grid_draw_circle(int8_t x0, int8_t y0, uint8_t radius, uint8_t val);
   // draw filled circle
   void grid_fill_circle(int8_t x0, int8_t y0, uint8_t radius, uint8_t val);
-
+  
   // grid led/set function
   void grid_led_set(int8_t x, int8_t y, uint8_t val);
   // grid led/clear function

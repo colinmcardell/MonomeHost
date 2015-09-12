@@ -399,6 +399,7 @@ void MonomeController::grid_draw_circle(int8_t x0, int8_t y0, uint8_t radius, ui
   }
 }
 
+// draw filled circle
 void MonomeController::grid_fill_circle(int8_t x0, int8_t y0, uint8_t radius, uint8_t val) {
   grid_draw_v_line(x0, y0 - radius, 2 * radius + 1, val);
   
